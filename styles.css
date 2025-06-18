@@ -1,0 +1,642 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #374151;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #faf5ff 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+
+.hero-section {
+    margin-bottom: 3rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    
+}
+
+.hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-background {
+    position: relative;
+    height: 16rem;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(91, 33, 182, 0.8) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: white;
+}
+
+.hero-icon {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 1rem;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.calculator-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    max-width: 32rem;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* Main Grid */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+    .main-grid {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+/* Cards */
+.calculator-card,
+.results-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    border: 1px solid #f3f4f6;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.scale-icon,
+.activity-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    color: #2563eb;
+}
+
+.activity-icon {
+    color: #16a34a;
+}
+
+.reset-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.reset-btn:hover {
+    color: #374151;
+}
+
+.reset-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+}
+
+/* Unit Toggle */
+.unit-toggle {
+    display: flex;
+    background: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.unit-btn {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: none;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+}
+
+.unit-btn.active {
+    background: white;
+    color: #2563eb;
+    font-weight: 500;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.unit-btn:hover:not(.active) {
+    color: #374151;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.height-inputs {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Calculate Button */
+.calculate-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    position: relative;
+}
+
+.calculate-btn:enabled {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.calculate-btn:enabled:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.calculate-btn:disabled {
+    background: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+#loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 0.5rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Results */
+.no-results {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.empty-icon {
+    width: 6rem;
+    height: 6rem;
+    background: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.empty-icon svg {
+    width: 3rem;
+    height: 3rem;
+    color: #9ca3af;
+}
+
+.no-results p {
+    color: #6b7280;
+}
+
+/* BMI Results */
+.bmi-score {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.bmi-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.bmi-category {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.bmi-category.underweight {
+    color: #2563eb;
+}
+
+.bmi-category.normal {
+    color: #16a34a;
+}
+
+.bmi-category.overweight {
+    color: #d97706;
+}
+
+.bmi-category.obese {
+    color: #dc2626;
+}
+
+/* BMI Scale */
+.bmi-scale {
+    margin-bottom: 1.5rem;
+}
+
+.scale-bar {
+    height: 1rem;
+    background: linear-gradient(to right, #60a5fa, #34d399, #fbbf24, #f87171);
+    border-radius: 0.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.scale-indicator {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 1rem;
+    background: #1f2937;
+    transform: translateX(-1px);
+}
+
+.scale-labels,
+.scale-categories {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.scale-categories {
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+
+/* Health Tip */
+.health-tip {
+    background: #dbeafe;
+    border-left: 4px solid #3b82f6;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tip-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.info-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #2563eb;
+    margin-right: 0.5rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.tip-header h4 {
+    font-weight: 500;
+    color: #1e40af;
+}
+
+.health-tip p {
+    color: #1d4ed8;
+    font-size: 0.875rem;
+}
+
+/* BMI Reference */
+.bmi-reference {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+}
+
+.bmi-reference h4 {
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.reference-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.reference-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+}
+
+.reference-item .underweight {
+    color: #2563eb;
+}
+
+.reference-item .normal {
+    color: #16a34a;
+}
+
+.reference-item .overweight {
+    color: #d97706;
+}
+
+.reference-item .obese {
+    color: #dc2626;
+}
+
+/* Health Tips Section */
+.health-tips {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+    .health-tips {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.tip-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #f3f4f6;
+}
+
+.tip-image {
+    height: 12rem;
+    background-size: cover;
+    background-position: center;
+}
+
+.tip-content {
+    padding: 1.5rem;
+}
+
+.tip-content .tip-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.heart-icon,
+.target-icon,
+.trending-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.heart-icon {
+    color: #ef4444;
+}
+
+.target-icon {
+    color: #3b82f6;
+}
+
+.trending-icon {
+    color: #10b981;
+}
+
+.tip-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.tip-content p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Educational Content */
+.educational-content {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    border: 1px solid #f3f4f6;
+}
+
+.educational-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.education-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .education-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.education-item h4 {
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.education-item p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.formula-box {
+    background: #dbeafe;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.formula-box p {
+    color: #1e40af !important;
+    font-size: 0.875rem !important;
+    font-weight: 500;
+    margin: 0;
+}
+
+.warning-box {
+    background: #fef3c7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.warning-box p {
+    color: #92400e !important;
+    font-size: 0.875rem !important;
+    font-weight: 500;
+    margin: 0;
+}
+/* Footer */
+.footer {
+    background: #f3f4f6;
+    color: #6b7280;
+    text-align: center;
+    padding: 2rem 1rem 1.5rem 1rem;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.95rem;
+    margin-top: 3rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+}
+
+.footer a {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .calculator-card,
+    .results-card {
+        padding: 1.5rem;
+    }
+    
+    .bmi-value {
+        font-size: 2.5rem;
+    }
+}

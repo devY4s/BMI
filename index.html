@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <meta name="description" content="Calculate your Body Mass Index (BMI) with our beautiful, easy-to-use calculator. Get instant results with health insights and personalized recommendations.">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="min-h-screen bg-gradient">
+        <div class="container">
+            <!-- Hero Section with Background Image -->
+            <div class="hero-section">
+                <div class="hero-background">
+                    <!-- Background Video -->
+                    <video autoplay muted loop playsinline class="hero-bg-video">
+                        <source src="bmi-vd.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <div class="hero-icon">
+                          <a href="https://www.linkedin.com/in/yassine-benhadi-279992354/">  <img src="logo.png" width="100px" alt=""></a>
+                        </div>
+                        <div class="d-felx">
+                            <h1>BMI Calculator</h1>
+                            <p>Calculate your Body Mass Index and get personalized health insights to help you maintain a healthy lifestyle.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-grid">
+                <!-- Calculator Form -->
+                <div class="calculator-card">
+                    <div class="card-header">
+                        <h2>
+                            <svg class="scale-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                                <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                                <path d="M7 21h10"/>
+                                <path d="M12 3v18"/>
+                                <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+                            </svg>
+                            Calculator
+                        </h2>
+                        <button class="reset-btn" onclick="resetCalculator()">
+                            <svg class="reset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Reset
+                        </button>
+                    </div>
+
+                    <!-- Unit Toggle -->
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" id="metric-btn" onclick="setUnit(true)">
+                            Metric (kg, cm)
+                        </button>
+                        <button class="unit-btn" id="imperial-btn" onclick="setUnit(false)">
+                            Imperial (lbs, ft)
+                        </button>
+                    </div>
+
+                    <!-- Weight Input -->
+                    <div class="input-group">
+                        <label for="weight">Weight <span id="weight-unit">(kg)</span></label>
+                        <input type="number" id="weight" placeholder="e.g., 70">
+                    </div>
+
+                    <!-- Height Input -->
+                    <div class="input-group">
+                        <label for="height">Height <span id="height-unit">(cm)</span></label>
+                        <div id="metric-height">
+                            <input type="number" id="height" placeholder="e.g., 175">
+                        </div>
+                        <div id="imperial-height" class="hidden">
+                            <div class="height-inputs">
+                                <input type="number" id="feet" placeholder="Feet">
+                                <input type="number" id="inches" placeholder="Inches">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateBMI()">
+                        <span id="btn-text">Calculate BMI</span>
+                        <div id="loading" class="hidden">
+                            <div class="spinner"></div>
+                            Calculating...
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Results -->
+                <div class="results-card">
+                    <h2>
+                        <svg class="activity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                        Results
+                    </h2>
+
+                    <div id="results-content">
+                        <div id="no-results" class="no-results">
+                            <div class="empty-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="4" y="2" width="16" height="20" rx="2"/>
+                                    <line x1="8" y1="6" x2="16" y2="6"/>
+                                    <line x1="16" y1="10" x2="16" y2="10"/>
+                                    <line x1="12" y1="10" x2="12" y2="10"/>
+                                    <line x1="8" y1="10" x2="8" y2="10"/>
+                                    <line x1="16" y1="14" x2="16" y2="14"/>
+                                    <line x1="12" y1="14" x2="12" y2="14"/>
+                                    <line x1="8" y1="14" x2="8" y2="14"/>
+                                    <line x1="16" y1="18" x2="16" y2="18"/>
+                                    <line x1="12" y1="18" x2="12" y2="18"/>
+                                    <line x1="8" y1="18" x2="8" y2="18"/>
+                                </svg>
+                            </div>
+                            <p>Enter your measurements to calculate your BMI</p>
+                        </div>
+
+                        <div id="bmi-results" class="hidden">
+                            <!-- BMI Score -->
+                            <div class="bmi-score">
+                                <div class="bmi-value" id="bmi-value">0</div>
+                                <div class="bmi-category" id="bmi-category">Normal Weight</div>
+                            </div>
+
+                            <!-- BMI Scale -->
+                            <div class="bmi-scale">
+                                <div class="scale-bar">
+                                    <div class="scale-indicator" id="scale-indicator"></div>
+                                </div>
+                                <div class="scale-labels">
+                                    <span>15</span>
+                                    <span>18.5</span>
+                                    <span>25</span>
+                                    <span>30</span>
+                                    <span>40</span>
+                                </div>
+                                <div class="scale-categories">
+                                    <span>Underweight</span>
+                                    <span>Normal</span>
+                                    <span>Overweight</span>
+                                    <span>Obese</span>
+                                </div>
+                            </div>
+
+                            <!-- Health Tip -->
+                            <div class="health-tip">
+                                <div class="tip-header">
+                                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="m9,9 0,0 a3,3 0 1,1 6,0c0,2-3,3-3,3"/>
+                                        <path d="m9,17 h6"/>
+                                    </svg>
+                                    <h4>Health Insight</h4>
+                                </div>
+                                <p id="health-tip-text">Great job! Maintain your healthy lifestyle with regular exercise and balanced nutrition.</p>
+                            </div>
+
+                            <!-- BMI Categories Reference -->
+                            <div class="bmi-reference">
+                                <h4>BMI Categories</h4>
+                                <div class="reference-list">
+                                    <div class="reference-item">
+                                        <span class="underweight">Underweight</span>
+                                        <span>Below 18.5</span>
+                                    </div>
+                                    <div class="reference-item">
+                                        <span class="normal">Normal weight</span>
+                                        <span>18.5 - 24.9</span>
+                                    </div>
+                                    <div class="reference-item">
+                                        <span class="overweight">Overweight</span>
+                                        <span>25.0 - 29.9</span>
+                                    </div>
+                                    <div class="reference-item">
+                                        <span class="obese">Obese</span>
+                                        <span>30.0 and above</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Tips Section with Images -->
+            <div class="health-tips">
+                <div class="tip-card">
+                    <div class="tip-image" style="background-image: url('https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                    <div class="tip-content">
+                        <div class="tip-header">
+                            <svg class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                            <h3>Healthy Eating</h3>
+                        </div>
+                        <p>Maintain a balanced diet rich in fruits, vegetables, lean proteins, and whole grains to support your health goals.</p>
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-image" style="background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800')"></div>
+                    <div class="tip-content">
+                        <div class="tip-header">
+                            <svg class="target-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="6"/>
+                                <circle cx="12" cy="12" r="2"/>
+                            </svg>
+                            <h3>Regular Exercise</h3>
+                        </div>
+                        <p>Incorporate at least 150 minutes of moderate-intensity exercise per week to maintain optimal health and fitness.</p>
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-image" style="background-image:url(bmi_img.webp);"></div>
+                    <div class="tip-content">
+                        <div class="tip-header">
+                            <svg class="trending-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/>
+                                <polyline points="16,7 22,7 22,13"/>
+                            </svg>
+                            <h3>Track Progress</h3>
+                        </div>
+                        <p>Monitor your health metrics regularly and consult with healthcare professionals for personalized guidance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Educational Content -->
+            <div class="educational-content">
+                <h3>Understanding BMI</h3>
+                <div class="education-grid">
+                    <div class="education-item">
+                        <h4>What is BMI?</h4>
+                        <p>Body Mass Index (BMI) is a screening tool that measures the relationship between your height and weight. It's used to categorize individuals into different weight status categories and assess potential health risks.</p>
+                        <div class="formula-box">
+                            <p><strong>BMI Formula: Weight (kg) ÷ Height² (m²)</strong></p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <h4>Important Note</h4>
+                        <p>BMI is a screening tool and not a diagnostic tool. It doesn't measure body fat directly and may not be accurate for athletes, elderly, or people with certain medical conditions.</p>
+                        <div class="warning-box">
+                            <p><strong>Always consult healthcare professionals for personalized advice.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                &copy; 2024 BMI Calculator &mdash; 
+                <a href="https://www.linkedin.com/in/yassine-benhadi-279992354/" target="_blank" rel="noopener">
+                    Yassine Benhadi
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
